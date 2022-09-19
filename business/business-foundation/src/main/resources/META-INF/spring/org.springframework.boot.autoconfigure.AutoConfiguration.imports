@@ -1,0 +1,8 @@
+cn.business.foundation.config.mybatis.MybatisPlusConfig
+cn.business.foundation.config.mybatis.MetaObjectHandlerConfig
+cn.business.foundation.config.springfox.SpringfoxFixConfig
+cn.business.foundation.config.jackson.MvcJacksonConfigurer
+cn.business.foundation.config.exception.MvcExceptionHandlerConfig
+cn.business.foundation.config.logging.MvcLoggingFilterConfig
+cn.business.foundation.config.security.MvcSecurityHttpConfig
+cn.business.foundation.config.session.MvcHttpSessionConfig

@@ -1,0 +1,48 @@
+server:
+  port: 8000
+
+info:
+  moduleName: '网关模块'
+  description: '验证与分发token，转发请求'
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      config:
+        namespace: ${nacosNamespace:server}
+        server-addr: ${nacosAddr:172.16.18.116:8848,172.16.18.116:8849}
+        extensionConfigs:
+          - data-id: logging.yml
+            group: server
+          - data-id: redis.yml
+            group: server
+          - data-id: gateway.yml
+            group: server
+          - data-id: nacos-discovery.yml
+            group: server
+        config-long-poll-timeout: 60000
+    gateway:
+      routes:
+        - id: business-web
+          uri: lb://business-web
+          predicates:
+            - Path=/web/**
+          filters:
+            - RequestReaderFilter
+            - ResponseReaderFilter
+        - id: business-data
+          uri: lb://business-data
+          predicates:
+            - Path=/data/**
+          filters:
+            - RequestReaderFilter
+            - ResponseReaderFilter
+      default-filters:
+        #发送原主机头
+        - PreserveHostHeader
+      httpclient:
+        connect-timeout: 10000
+  main:
+    allow-bean-definition-overriding: true

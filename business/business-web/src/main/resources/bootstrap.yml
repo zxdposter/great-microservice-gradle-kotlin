@@ -1,0 +1,34 @@
+server:
+  port: 8100
+  servlet:
+    context-path: /web
+info:
+  moduleName: '应用模块'
+  description: '后台业务'
+
+spring:
+  application:
+    name: business-web
+  cloud:
+    nacos:
+      config:
+        namespace: ${nacosNamespace:server}
+        server-addr: ${nacosAddr:172.16.18.116:8848,172.16.18.116:8849}
+        extensionConfigs:
+          - data-id: web.yml
+            group: server
+          - data-id: logging.yml
+            group: server
+          - data-id: jdbc.yml
+            group: server
+          - data-id: redis.yml
+            group: server
+          - data-id: jdbc.yml
+            group: server
+          - data-id: elasticsearch.yml
+            group: server
+          - data-id: nacos-discovery.yml
+            group: server
+        config-long-poll-timeout: 60000
+  main:
+    allow-bean-definition-overriding: true
